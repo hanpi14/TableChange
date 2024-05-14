@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Locale;
 
 import static com.yunsheng.utils.GetSparkTableName.getSparkTableName;
 
@@ -28,8 +29,16 @@ public class GetSparkSql {
 //            System.out.println(line.trim());
             String[] split = line.trim().split("\\s+");
 
+            StringBuffer sb = new StringBuffer();
+
             for (String string : split) {
-                getSparkTableName(string);
+
+                if (string.trim().toLowerCase(Locale.ROOT).startsWith("ods_")){
+                    getSparkTableName(string);
+                }
+
+                sb.append(string.trim()).append(" ");
+
             }
 
 
