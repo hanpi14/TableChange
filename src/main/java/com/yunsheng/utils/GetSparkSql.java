@@ -63,8 +63,8 @@ public class GetSparkSql {
     }
 
 
-    public static void main(String[] args) throws IOException {
-
-        getSparkSql(new HashMap<>(), "HRO项目管理费.sql");
-    }
+//    public static void main(String[] args) throws IOException {
+//
+//        getSparkSql(new HashMap<>(), "HRO项目管理费.sql");
+//    }
 }
