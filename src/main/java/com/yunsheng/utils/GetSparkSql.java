@@ -10,41 +10,54 @@ import java.util.Locale;
 import static com.yunsheng.utils.GetSparkTableName.getSparkTableName;
 
 /**
- *  mysql 结构转化为 sparkSql
+ * mysql 结构转化为 sparkSql
  */
 
 public class GetSparkSql {
 
 
+    public static String getSparkSql(String catalog,HashMap<String, String> map, String fileName) throws IOException {
 
-    public static void getSparkSql(HashMap<String,String> map,String fileName) throws IOException {
-
-        InputStream stream = ClassLoader.getSystemResourceAsStream("original_mysql_table/"+fileName);
+        InputStream stream = ClassLoader.getSystemResourceAsStream("original_mysql_table/" + fileName);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 
         String line;
-
-        while ((line = br.readLine())!= null){
+        StringBuffer sb = new StringBuffer();
+        while ((line = br.readLine()) != null) {
 //            System.out.println(line.trim());
             String[] split = line.trim().split("\\s+");
 
-            StringBuffer sb = new StringBuffer();
 
             for (String string : split) {
 
-                if (string.trim().toLowerCase(Locale.ROOT).startsWith("ods_")){
-                    getSparkTableName(string);
+                if (string.trim().toLowerCase(Locale.ROOT).startsWith("ods_")) {
+                    String tableName = getSparkTableName(string);
+
+                    if (tableName != null && !"".equals(tableName)) {
+
+                        String schema = map.get(tableName);
+                        if (schema.trim().contains("-")){
+                            schema="`"+schema+"`";
+                        }
+
+                        sb.append(catalog).append(".").append(schema).append(".").append(tableName).append(" ");
+                    }
+                }else {
+                    sb.append(string.trim()).append(" ");
                 }
 
-                sb.append(string.trim()).append(" ");
+
 
             }
+
+            sb.append("\n");
 
 
         }
 
 
+        return sb.toString();
 
 
     }
@@ -52,6 +65,6 @@ public class GetSparkSql {
 
     public static void main(String[] args) throws IOException {
 
-        getSparkSql(new HashMap<>(),"HRO项目管理费.sql");
+        getSparkSql(new HashMap<>(), "HRO项目管理费.sql");
     }
 }

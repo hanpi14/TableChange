@@ -1,4 +1,5 @@
 import com.yunsheng.utils.GetFileName;
+import com.yunsheng.utils.GetSparkSql;
 import org.springframework.core.io.Resource;
 
 import java.io.BufferedReader;
@@ -14,6 +15,11 @@ public class TableChangeJava {
      * 针对数仓迁移表名替换
      * @param args
      */
+
+    //原始mysql表名
+    private static String originalMysqlTable="HRO项目管理费.sql";
+
+    private static String catalog="ods";
     public static void main(String[] args) throws Exception {
 
 
@@ -45,9 +51,10 @@ public class TableChangeJava {
 
         // 读取文件进行比对
 
+        String sparkSql = GetSparkSql.getSparkSql(catalog,map, originalMysqlTable);
 
 
-
+        System.out.println(sparkSql);
 
 
     }
