@@ -74,4 +74,81 @@ public class GetChangeFormatAndDate {
 
 
 
+    public static String snapSqlLocal(String input,String snapDate){
+
+//        String input = "SELECT * FROM ods.sbt_prod.oprt_boss_organization WHERE ...";
+        String regex = "(?i)ods\\.([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        StringBuffer output = new StringBuffer();
+        while (matcher.find()) {
+            String group = matcher.group(0);
+            String schema = matcher.group(1); // 匹配到的schema名
+            String tableName = matcher.group(2); // 匹配到的表名
+            // 这里可以根据需要对 schema 和 tableName 进行处理，例如替换成其他值
+            matcher.appendReplacement(output, "\\("+group+" FOR SYSTEM_TIME AS OF \\'"+snapDate+"\\' )");
+        }
+        matcher.appendTail(output);
+
+//        System.out.println("替换后的字符串: " + output.toString());
+
+        return output.toString();
+    }
+
+
+
+
+    public static String snapSql(String input){
+
+//        String input = "SELECT * FROM ods.sbt_prod.oprt_boss_organization WHERE ...";
+        String regex = "(?i)ods\\.([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        StringBuffer output = new StringBuffer();
+        while (matcher.find()) {
+            String group = matcher.group(0);
+            String schema = matcher.group(1); // 匹配到的schema名
+            String tableName = matcher.group(2); // 匹配到的表名
+            // 这里可以根据需要对 schema 和 tableName 进行处理，例如替换成其他值
+            matcher.appendReplacement(output, "\\("+group+" FOR SYSTEM_TIME AS OF \\'\\${snap_date\\}\\' )");
+        }
+        matcher.appendTail(output);
+
+//        System.out.println("替换后的字符串: " + output.toString());
+
+        return output.toString();
+    }
+
+
+
+    public static String dwdTableNameChange(String input){
+
+
+//        String input = "SELECT * FROM dwd_online_mi WHERE ...";
+        String regex = "\\b([a-zA-Z0-9_]+)mi\\b";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        StringBuffer output = new StringBuffer();
+        while (matcher.find()) {
+
+//            System.out.println(matcher.group(0));
+            String tableName = matcher.group(1); // 匹配到的表名
+//            String tableName2 = matcher.group(2); // 匹配到的表名
+//            System.out.println(tableName);
+//            System.out.println(tableName2);
+            // 这里可以根据需要对 tableName 进行处理，例如替换成其他值
+            matcher.appendReplacement(output, "dw.dwd."+tableName+"!{load_freq}i");
+        }
+        matcher.appendTail(output);
+
+//        System.out.println("替换后的字符串: " + output.toString());
+
+
+        return  output.toString();
+    }
+
+
 }

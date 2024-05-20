@@ -1,7 +1,11 @@
 package com.yunsheng;
 
+import com.yunsheng.utils.GetChangeFormatAndDate;
+import com.yunsheng.utils.GetDataFormatAndDate;
 import com.yunsheng.utils.TableChangeJavaLocal;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -16,14 +20,32 @@ public class SqlMain {
 
     private static String changeDate= "202405";
 
+    private static String snapDate="2024-05-18 03:00:00";
+
     public static void main(String[] args) throws URISyntaxException, IOException {
 
-        //通过mysql获取本地运行的sparksql
+        // TODO: 2024/5/20  通过mysql获取本地运行的sparksql
+
+
 
         String localSparkSql = TableChangeJavaLocal.tableChangeJavaLocal(originalMysqlTable, catalog, changeDate);
 
+        String snapSqlLocal = GetChangeFormatAndDate.snapSqlLocal(localSparkSql, snapDate);
 
-        System.out.println(localSparkSql);
+
+        System.out.println(snapSqlLocal);
+
+
+        // TODO: 2024/5/20 将本地sparksql转化为模板sql，用于构建模板文件
+        String template = GetChangeFormatAndDate.replaceDateTemplate(localSparkSql, "report_month");
+
+        String result = GetChangeFormatAndDate.snapSql(template);
+        String dwdTableNameChange = GetChangeFormatAndDate.dwdTableNameChange(result);
+
+//        System.out.println(dwdTableNameChange);
+
+
+
 
     }
 }
