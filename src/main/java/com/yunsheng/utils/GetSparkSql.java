@@ -38,7 +38,7 @@ public class GetSparkSql {
 
                         String schema = map.get(tableName);
                         if (schema.trim().contains("-")){
-                            schema="`"+schema+"`";
+                            schema=schema.trim().replaceAll("-","_");
                         }
 
                         sb.append(catalog).append(".").append(schema).append(".").append(tableName).append(" ");

@@ -1,3 +1,4 @@
+import com.yunsheng.utils.GetChangeFormatAndDate;
 import com.yunsheng.utils.GetFileName;
 import com.yunsheng.utils.GetSparkSql;
 import org.springframework.core.io.Resource;
@@ -17,9 +18,12 @@ public class TableChangeJava {
      */
 
     //原始mysql表名
-    private static String originalMysqlTable="HRO项目管理费.sql";
+    private static String originalMysqlTable="新版社保通订单补充费用.sql";
 
+    //catalog名称
     private static String catalog="ods";
+
+    private static String changDate= "202405";
     public static void main(String[] args) throws Exception {
 
 
@@ -54,8 +58,24 @@ public class TableChangeJava {
         String sparkSql = GetSparkSql.getSparkSql(catalog,map, originalMysqlTable);
 
 
-        System.out.println(sparkSql);
+        //替换 %Y%m,%Y%m%d,日期
 
 
+        String result = GetChangeFormatAndDate.getChangeFormatAndDate(sparkSql, changDate);
+
+
+        //本地测试sql语句
+//        System.out.println(result);
+
+
+        System.out.println("======================================================================");
+        //生成ds模板文件使用
+
+        String replace = result.replace("dwd_order_emp_online_mi", "dw.dwd.dwd_order_emp_online_!{load_freq}i");
+
+        String template = GetChangeFormatAndDate.replaceDateTemplate(replace, "report_month");
+
+
+        System.out.println(template);
     }
 }
