@@ -5,17 +5,16 @@ import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Test03 {
+public class ChangeDateToFormat {
 
 
     @Test
     public void getTemplate() throws IOException {
 
-        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\spark_table_localTest\\薪资\\抵扣.sql");
+        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\spark_table_localTest\\退费订单\\退费薪资订单逻辑.sql");
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 

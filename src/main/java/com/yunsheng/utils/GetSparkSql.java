@@ -18,7 +18,7 @@ public class GetSparkSql {
 
     public static String getSparkSql(String catalog,HashMap<String, String> map, String fileName) throws IOException {
 
-        InputStream stream = ClassLoader.getSystemResourceAsStream("original_mysql_table/" + fileName);
+        InputStream stream = ClassLoader.getSystemResourceAsStream( fileName);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 

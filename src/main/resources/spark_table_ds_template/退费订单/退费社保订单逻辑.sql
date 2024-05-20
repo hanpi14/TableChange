@@ -1,58 +1,76 @@
 DELETE
-FROM dwd_order_emp_online_mi
+FROM dw.dwd.dwd_order_emp_online_!{load_freq} i
 WHERE is_sup = 0
   AND data_source = -12
-  AND (is_extra = 1 OR is_refund = 1)
-  AND order_type IN (1, 2, -1);
-INSERT INTO dwd_order_emp_online_mi(data_source, order_no, order_type, business_type, ar_no, order_month,
-                                    raw_order_month,
-                                    fee_month,
-                                    member_code, member_name,
-                                    party_b,
-                                    emp_name, emp_id_no, mobile, region, raw_region, order_region, raw_order_region,
-                                    order_item,
-                                    order_tax_rate,
-                                    reward_tax_rate, is_solo,
-                                    is_collect, is_cross,
-                                    is_refund,
-                                    is_extra,
-                                    is_sup,
-                                    is_cancel,
-                                    is_diff,
-                                    is_ignore,
-                                    is_discard,
-                                    income_type,
-                                    income_reward, raw_income_reward, income_order, raw_income_order, income_overdue,
-                                    income_disabled,
-                                    income_added_tax,
-                                    income_stable, income_indv_tax, serve_count, supplier_code, supplier_name,
-                                    cost_type,
-                                    cost_reward,
-                                    sale_emp_name,
-                                    serve_emp_id,
-                                    sale_emp_id, serve_dept_id, sale_dept_id, order_parm, indv_net_pay,
-                                    indv_income_tax,
-                                    income_indv_order,
-                                    income_corp_order, corp_pension_amount, corp_pension_rate, indv_pension_amount,
-                                    indv_pension_rate, corp_illness_amount, corp_illness_rate, indv_illness_amount,
-                                    indv_illness_rate, corp_work_amount, corp_work_rate, indv_work_amount,
-                                    indv_work_rate,
-                                    corp_unemployed_amount, corp_unemployed_rate, indv_unemployed_amount,
-                                    indv_unemployed_rate,
-                                    corp_birth_amount, corp_birth_rate, indv_birth_amount, indv_birth_rate,
-                                    corp_disabled_amount,
-                                    corp_disabled_rate, indv_disabled_amount, indv_disabled_rate,
-                                    corp_serious_illness_amount,
-                                    corp_serious_illness_rate, indv_serious_illness_amount, indv_serious_illness_rate,
-                                    corp_ext_illness_amount, corp_ext_illness_rate, indv_ext_illness_amount,
-                                    indv_ext_illness_rate,
-                                    corp_hospital_amount, corp_hospital_rate, indv_hospital_amount, indv_hospital_rate,
-                                    corp_fund_amount, corp_fund_rate, indv_fund_amount, indv_fund_rate,
-                                    indv_union_amount,
-                                    indv_other_amount, corp_other_amount, debit_card_no, bank_name, bank_region,
-                                    tax_corp,
-                                    raw_create_time,
-                                    comment, raw_order_no, batch_no)
+  AND (is_extra = 1
+   OR is_refund = 1)
+  AND order_type IN (1
+    , 2
+    , -1);
+INSERT INTO dw.dwd.dwd_order_emp_online_!{load_freq} i(data_source, order_no, order_type, business_type, ar_no,
+                                                       order_month,
+                                                       raw_order_month,
+                                                       fee_month,
+                                                       member_code, member_name,
+                                                       party_b,
+                                                       emp_name, emp_id_no, mobile, region, raw_region, order_region,
+                                                       raw_order_region,
+                                                       order_item,
+                                                       order_tax_rate,
+                                                       reward_tax_rate, is_solo,
+                                                       is_collect, is_cross,
+                                                       is_refund,
+                                                       is_extra,
+                                                       is_sup,
+                                                       is_cancel,
+                                                       is_diff,
+                                                       is_ignore,
+                                                       is_discard,
+                                                       income_type,
+                                                       income_reward, raw_income_reward, income_order, raw_income_order,
+                                                       income_overdue,
+                                                       income_disabled,
+                                                       income_added_tax,
+                                                       income_stable, income_indv_tax, serve_count, supplier_code,
+                                                       supplier_name,
+                                                       cost_type,
+                                                       cost_reward,
+                                                       sale_emp_name,
+                                                       serve_emp_id,
+                                                       sale_emp_id, serve_dept_id, sale_dept_id, order_parm,
+                                                       indv_net_pay,
+                                                       indv_income_tax,
+                                                       income_indv_order,
+                                                       income_corp_order, corp_pension_amount, corp_pension_rate,
+                                                       indv_pension_amount,
+                                                       indv_pension_rate, corp_illness_amount, corp_illness_rate,
+                                                       indv_illness_amount,
+                                                       indv_illness_rate, corp_work_amount, corp_work_rate,
+                                                       indv_work_amount,
+                                                       indv_work_rate,
+                                                       corp_unemployed_amount, corp_unemployed_rate,
+                                                       indv_unemployed_amount,
+                                                       indv_unemployed_rate,
+                                                       corp_birth_amount, corp_birth_rate, indv_birth_amount,
+                                                       indv_birth_rate,
+                                                       corp_disabled_amount,
+                                                       corp_disabled_rate, indv_disabled_amount, indv_disabled_rate,
+                                                       corp_serious_illness_amount,
+                                                       corp_serious_illness_rate, indv_serious_illness_amount,
+                                                       indv_serious_illness_rate,
+                                                       corp_ext_illness_amount, corp_ext_illness_rate,
+                                                       indv_ext_illness_amount,
+                                                       indv_ext_illness_rate,
+                                                       corp_hospital_amount, corp_hospital_rate, indv_hospital_amount,
+                                                       indv_hospital_rate,
+                                                       corp_fund_amount, corp_fund_rate, indv_fund_amount,
+                                                       indv_fund_rate,
+                                                       indv_union_amount,
+                                                       indv_other_amount, corp_other_amount, debit_card_no, bank_name,
+                                                       bank_region,
+                                                       tax_corp,
+                                                       raw_create_time,
+                                                       comment, raw_order_no, batch_no)
 
 SELECT -12                                                                           AS data_source,
        A.code                                                                        AS order_no,
@@ -62,7 +80,7 @@ SELECT -12                                                                      
                                   WHEN 2 THEN IF(M.dic_value = '2' OR M.dic_value = '3', 2, 1) END,
           -1)                                                                        AS business_type,
        A.receive_no                                                                  AS ar_no,
-       '202405'                                                                      AS order_month,
+       '${report_month}'                                                             AS order_month,
        C.area_order_month                                                            AS raw_order_month,
        C.fee_month                                                                   AS fee_month,
        F.member_code                                                                 AS member_code,
@@ -91,7 +109,7 @@ SELECT -12                                                                      
        H.tax_rate                                                                    AS reward_tax_rate,
        IF(C.account_property = 2, 1, 0)                                              AS is_solo,
        IF(C.account_property = 2, 0, 1)                                              AS is_collect,
-       IF(C.area_order_month < '202405', 1, 0)                                       AS is_cross,
+       IF(C.area_order_month < '${report_month}', 1, 0)                              AS is_cross,
        IF(B.type = 1, 0, 1)                                                          AS is_refund,
        IF(B.type = 1, 1, 0)                                                          AS is_extra,
        0                                                                             AS is_sup,
@@ -205,10 +223,10 @@ FROM ods.trade_center.trade_business_fee_refund_order A
          LEFT JOIN ods.shebaotong.sbt_order_ins O
                    ON C.order_ins_id = O.id
          LEFT JOIN
-             (SELECT order_id,max(sipr_tax_rate),max(tax_rate)
-                               FROM ods.shebaotong.sbt_order_subject
-                    WHERE fee_type = 1
-                    GROUP BY order_id) R ON R.order_id = O.order_id
+            (SELECT order_id, max(sipr_tax_rate), max(tax_rate)
+      FROM ods.shebaotong.sbt_order_subject
+      WHERE fee_type = 1
+      GROUP BY order_id) R ON R.order_id = O.order_id
          LEFT JOIN ods.sbt_prod.fnc_receivable_account P
                    ON A.receive_no = P.receive_no
          LEFT JOIN ods.shebaotong.sbt_insurance_item Q
@@ -216,8 +234,8 @@ FROM ods.trade_center.trade_business_fee_refund_order A
          LEFT JOIN ods.sbt_prod.fnc_receivable_account S
                    ON A.receive_no = S.receive_no
 WHERE (
-        (S.order_month = '202405' AND DATE_FORMAT(S.confirm_time, 'yyyyMM') <= '202405')
-        OR (S.order_month <= '202405' AND DATE_FORMAT(S.confirm_time, 'yyyyMM') = '202405')
+        (S.order_month = '${report_month}' AND DATE_FORMAT(S.confirm_time, 'yyyyMM') <= '${report_month}')
+        OR (S.order_month <= '${report_month}' AND DATE_FORMAT(S.confirm_time, 'yyyyMM') = '${report_month}')
     )
   AND A.business_type = 1
   AND A.state IN (3, 5);
