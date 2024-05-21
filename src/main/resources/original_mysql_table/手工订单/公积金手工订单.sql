@@ -1,137 +1,136 @@
 DELETE
-FROM dw.dwd.dwd_order_emp_online_!{load_freq}i
+FROM dwd_order_emp_online_mi
 WHERE order_type = 2
   AND data_source = -1
   AND is_sup = 0
   AND is_extra = 0
   AND is_refund = 0;
 
-
-INSERT INTO dw.dwd.dwd_order_emp_online_!{load_freq}i(data_source,
-                                           order_no,
-                                           order_type,
-                                           business_type,
-                                           ar_no,
-                                           order_month,
-                                           raw_order_month,
-                                           fee_month,
-                                           member_code,
-                                           member_name,
-                                           party_b,
-                                           emp_name,
-                                           emp_id_no,
-                                           mobile,
-                                           region,
-                                           raw_region,
-                                           order_region,
-                                           raw_order_region,
-                                           order_item,
-                                           order_tax_rate,
-                                           reward_tax_rate,
-                                           is_solo,
-                                           tax_calc_mode,
-                                           is_collect,
-                                           is_cross,
-                                           is_refund,
-                                           is_extra,
-                                           is_sup,
-                                           is_cancel,
-                                           is_diff,
-                                           is_ignore,
-                                           is_discard,
-                                           income_type,
-                                           income_reward,
-                                           raw_income_reward,
-                                           income_order,
-                                           raw_income_order,
-                                           income_overdue,
-                                           income_disabled,
-                                           income_added_tax,
-                                           income_stable,
-                                           income_indv_tax,
-                                           serve_count,
-                                           supplier_code,
-                                           supplier_name,
-                                           cost_type,
-                                           cost_reward,
-                                           sale_emp_name,
-                                           serve_emp_id,
-                                           sale_emp_id,
-                                           serve_dept_id,
-                                           sale_dept_id,
-                                           order_parm,
-                                           indv_net_pay,
-                                           indv_income_tax,
-                                           income_indv_order,
-                                           income_corp_order,
-                                           corp_pension_amount,
-                                           corp_pension_rate,
-                                           indv_pension_amount,
-                                           indv_pension_rate,
-                                           corp_illness_amount,
-                                           corp_illness_rate,
-                                           indv_illness_amount,
-                                           indv_illness_rate,
-                                           corp_work_amount,
-                                           corp_work_rate,
-                                           indv_work_amount,
-                                           indv_work_rate,
-                                           corp_unemployed_amount,
-                                           corp_unemployed_rate,
-                                           indv_unemployed_amount,
-                                           indv_unemployed_rate,
-                                           corp_birth_amount,
-                                           corp_birth_rate,
-                                           indv_birth_amount,
-                                           indv_birth_rate,
-                                           corp_disabled_amount,
-                                           corp_disabled_rate,
-                                           indv_disabled_amount,
-                                           indv_disabled_rate,
-                                           corp_serious_illness_amount,
-                                           corp_serious_illness_rate,
-                                           indv_serious_illness_amount,
-                                           indv_serious_illness_rate,
-                                           corp_ext_illness_amount,
-                                           corp_ext_illness_rate,
-                                           indv_ext_illness_amount,
-                                           indv_ext_illness_rate,
-                                           corp_hospital_amount,
-                                           corp_hospital_rate,
-                                           indv_hospital_amount,
-                                           indv_hospital_rate,
-                                           corp_fund_amount,
-                                           corp_fund_rate,
-                                           indv_fund_amount,
-                                           indv_fund_rate,
-                                           indv_union_amount,
-                                           corp_other_amount,
-                                           indv_other_amount,
-                                           debit_card_no,
-                                           bank_name,
-                                           bank_region,
-                                           tax_corp,
-                                           raw_create_time,
-                                           comment,
-                                           raw_order_no,
-                                           batch_no)
-SELECT -1                                                                     AS data_source,
-       A.order_no                                                             AS order_no,
-       2                                                                      AS order_type,
+INSERT INTO dwd_order_emp_online_mi(
+    data_source,
+    order_no,
+    order_type,
+    business_type,
+    ar_no,
+    order_month,
+    raw_order_month,
+    fee_month,
+    member_code,
+    member_name,
+    party_b,
+    emp_name,
+    emp_id_no,
+    mobile,
+    region,
+    raw_region,
+    order_region,
+    raw_order_region,
+    order_item,
+    order_tax_rate,
+    reward_tax_rate,
+    is_solo,
+    tax_calc_mode,
+    is_collect,
+    is_cross,
+    is_refund,
+    is_extra,
+    is_sup,
+    is_cancel,
+    is_diff,
+    is_ignore,
+    is_discard,
+    income_type,
+    income_reward,
+    raw_income_reward,
+    income_order,
+    raw_income_order,
+    income_overdue,
+    income_disabled,
+    income_added_tax,
+    income_stable,
+    income_indv_tax,
+    serve_count,
+    supplier_code,
+    supplier_name,
+    cost_type,
+    cost_reward,
+    sale_emp_name,
+    serve_emp_id,
+    sale_emp_id,
+    serve_dept_id,
+    sale_dept_id,
+    order_parm,
+    indv_net_pay,
+    indv_income_tax,
+    income_indv_order,
+    income_corp_order,
+    corp_pension_amount,
+    corp_pension_rate,
+    indv_pension_amount,
+    indv_pension_rate,
+    corp_illness_amount,
+    corp_illness_rate,
+    indv_illness_amount,
+    indv_illness_rate,
+    corp_work_amount,
+    corp_work_rate,
+    indv_work_amount,
+    indv_work_rate,
+    corp_unemployed_amount,
+    corp_unemployed_rate,
+    indv_unemployed_amount,
+    indv_unemployed_rate,
+    corp_birth_amount,
+    corp_birth_rate,
+    indv_birth_amount,
+    indv_birth_rate,
+    corp_disabled_amount,
+    corp_disabled_rate,
+    indv_disabled_amount,
+    indv_disabled_rate,
+    corp_serious_illness_amount,
+    corp_serious_illness_rate,
+    indv_serious_illness_amount,
+    indv_serious_illness_rate,
+    corp_ext_illness_amount,
+    corp_ext_illness_rate,
+    indv_ext_illness_amount,
+    indv_ext_illness_rate,
+    corp_hospital_amount,
+    corp_hospital_rate,
+    indv_hospital_amount,
+    indv_hospital_rate,
+    corp_fund_amount,
+    corp_fund_rate,
+    indv_fund_amount,
+    indv_fund_rate,
+    indv_union_amount,
+    corp_other_amount,
+    indv_other_amount,
+    debit_card_no,
+    bank_name,
+    bank_region,
+    tax_corp,
+    raw_create_time,
+    comment,
+    raw_order_no,
+    batch_no)
+SELECT -1                                                                                               AS data_source,
+       A.order_no                                                                                       AS order_no,
+       2                                                                                                AS order_type,
        IF(G.virtual_flag = 0, CASE D.open_invoice_type
                                   WHEN 1 THEN 8
-                                  WHEN 2 THEN IF(N.dic_value = '2' OR N.dic_value = '3', 2, 1) END,
-          -1)                                                                 AS business_type,
-       A.ar_no                                                                AS ar_no,
-       '${report_month}'                                                               AS order_month,
-       IFNULL(A.order_month, '${report_month}')                                        AS raw_order_month,
-       IFNULL(DATE_FORMAT(CONCAT(B.month, '-01'), 'yyyyMM'), '${report_month}')        AS fee_month,
-       G.member_code                                                          AS member_code,
-       G.member_name                                                          AS member_name,
-       E.org_name                                                             AS party_b,
-       B.name                                                                 AS emp_name,
-       B.cert_no AS emp_id_no,
-       ''                                                                     AS mobile,
+                                  WHEN 2 THEN IF(N.dic_value = '2' OR N.dic_value = '3', 2, 1) END, -1) AS business_type,
+       A.ar_no                                                                                          AS ar_no,
+       '202204'                                                                                         AS order_month,
+       IFNULL(A.order_month, '202204')                                                                  AS raw_order_month,
+       IFNULL(DATE_FORMAT(CONCAT(B.month, '-01'), '%Y%m'), '202204')                                    AS fee_month,
+       G.member_code                                                                                    AS member_code,
+       G.member_name                                                                                    AS member_name,
+       E.org_name                                                                                       AS party_b,
+       B.name                                                                                           AS emp_name,
+       AES_DECRYPT(FROM_BASE64(B.cert_no), LEFT(UNHEX(SHA1('bCdEfGhI')), 16))                           AS emp_id_no,
+       ''                                                                                               AS mobile,
        CASE
            WHEN B.area_name IS NULL THEN '全国'
            WHEN B.area_name LIKE '%（%' THEN SUBSTRING_INDEX(B.area_name, '（', 1)
@@ -152,7 +151,7 @@ SELECT -1                                                                     AS
        IF(C.single_flag = 1, 1, 0)                                            AS is_solo,
        0                                                                      AS tax_calc_mode,
        IF(C.single_flag = 1, 0, 1)                                            AS is_collect,
-       IF(A.order_month != '${report_month}', 1, 0)                                    AS is_cross,
+       IF(A.order_month != '202204', 1, 0)                                    AS is_cross,
        0                                                                      AS is_refund,
        0                                                                      AS is_extra,
        0                                                                      AS is_sup,
@@ -235,46 +234,46 @@ SELECT -1                                                                     AS
        A.create_time                                                          AS raw_create_time,
        A.memo                                                                 AS comment,
        ''                                                                     AS raw_order_no,
-       REPLACE(UUID(),  '-',  '')                                   AS batch_no
+       REPLACE(UUID(), _utf8'-', _utf8'')                                     AS batch_no
 FROM (SELECT O.id,
              O.member_product_id,
              O.contract_company_id,
              O.member_id,
              O.city_code,
-             O.order_code                                            AS order_no,
-             O.receive_no                                            AS ar_no,
+             O.order_code                                          AS order_no,
+             O.receive_no                                          AS ar_no,
              DATE_FORMAT(IF(O.order_month = '', IF(O.order_date = '', O.order_start_date, O.order_date),
-                            CONCAT(O.order_month, '-01')), 'yyyyMM') AS order_month,
-             O.name                                                  AS order_item,
+                            CONCAT(O.order_month, '-01')), '%Y%m') AS order_month,
+             O.name                                                AS order_item,
              O.create_time,
              O.memo
-      FROM (ods.trade_center.trade_business_order FOR SYSTEM_TIME AS OF '${snap_date}') O
+      FROM ods_trade_business_order_20240410 O
       WHERE O.create_order = 1
         AND (O.order_month != '' OR O.order_date != '' OR O.order_start_date != '')
         AND ((DATE_FORMAT(IF(O.order_month = '', IF(O.order_date = '', O.order_start_date, O.order_date),
-                             CONCAT(O.order_month, '-01')), 'yyyyMM') <= '${report_month}'
-          AND DATE_FORMAT(O.confirm_time, 'yyyyMM') = '${report_month}') OR
+                             CONCAT(O.order_month, '-01')), '%Y%m') <= '202204'
+          AND DATE_FORMAT(O.confirm_time, '%Y%m') = '202204') OR
              (DATE_FORMAT(IF(O.order_month = '', IF(O.order_date = '', O.order_start_date, O.order_date),
-                             CONCAT(O.order_month, '-01')), 'yyyyMM') = '${report_month}'
-                 AND DATE_FORMAT(O.confirm_time, 'yyyyMM') <= '${report_month}'))
+                             CONCAT(O.order_month, '-01')), '%Y%m') = '202204'
+                 AND DATE_FORMAT(O.confirm_time, '%Y%m') <= '202204'))
         AND O.test_flag = 0
         AND O.service_type = 1
         AND O.audit_state = 3
         AND O.order_state != 5
         AND O.memo NOT LIKE '%补录%') A
-         INNER JOIN (ods.trade_center.trade_business_order_sbpeople FOR SYSTEM_TIME AS OF '${snap_date}') B
-                    ON A.id = B.order_id AND B.gongjijin_amount != 0 AND B.valid = 1
-         LEFT JOIN (ods.sbt_prod.mbc_member_product FOR SYSTEM_TIME AS OF '${snap_date}') C
-                   ON A.member_product_id = C.m_pr_id
-         LEFT JOIN (ods.sbt_prod.basic_org_product FOR SYSTEM_TIME AS OF '${snap_date}') D
-                   ON C.pr_id = D.pr_id
-         LEFT JOIN (ods.sbt_prod.oprt_boss_organization FOR SYSTEM_TIME AS OF '${snap_date}') E
-                   ON E.org_id = A.contract_company_id
-         LEFT JOIN (ods.sbt_prod.supplier_info FOR SYSTEM_TIME AS OF '${snap_date}') F
+         INNER JOIN ods_trade_business_order_sbpeople_20240411 B
+      ON A.id = B.order_id AND B.gongjijin_amount != 0 AND B.valid = 1
+          LEFT JOIN ods_mbc_member_product_20240410 C
+             ON A.member_product_id = C.m_pr_id
+         LEFT JOIN ods_basic_org_product_20240410 D
+             ON C.pr_id = D.pr_id
+         LEFT JOIN ods_oprt_boss_organization_20240410 E
+             ON E.org_id = A.contract_company_id
+         LEFT JOIN ods_supplier_info_20240410 F
                    ON IF(B.gongjijin_supplier_id != 0, B.gongjijin_supplier_id, B.supplier_id) = F.supplier_id
-         INNER JOIN (ods.sbt_prod.mbc_member_info FOR SYSTEM_TIME AS OF '${snap_date}') G
-                    ON A.member_id = G.member_id
-         LEFT JOIN (ods.sbt_prod.sys_dictionary_dtl FOR SYSTEM_TIME AS OF '${snap_date}') N
+         INNER JOIN ods_mbc_member_info_20240410 G
+             ON A.member_id = G.member_id
+         LEFT JOIN ods_sys_dictionary_dtl_20240410 N
                    ON D.service_type = N.dic_value AND N.dic_code = 'PR_SERVICE_TYPE'
-         LEFT JOIN (ods.sbt_prod.basic_ins_area FOR SYSTEM_TIME AS OF '${snap_date}') S
-                   ON A.city_code = S.area_code;
+         LEFT JOIN ods_basic_ins_area_20240410 S
+             ON A.city_code = S.area_code;

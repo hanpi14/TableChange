@@ -141,10 +141,10 @@ public class GetChangeFormatAndDate {
                 // 输出最终的 SQL 语句
 //                System.out.println("最终的 SQL 语句：");
 //                System.out.println(finalSql.toString());
-                sb.append(finalSql.toString()).append("\n");
+                sb.append(finalSql.toString()).append(";").append("\n");
 
             }else {
-                sb.append(sql).append("\n");
+                sb.append(sql).append(";").append("\n");
 
 
             }

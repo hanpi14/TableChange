@@ -111,7 +111,7 @@ INSERT INTO dw.dwd.dwd_order_emp_online_!{load_freq}i(data_source,
                                                       bank_region,
                                                       tax_corp,
                                                       raw_create_time,
-                                                      COMMENT,
+                                                      comment,
                                                       raw_order_no,
                                                       batch_no)
 SELECT B.data_source                                                                                    AS data_source,

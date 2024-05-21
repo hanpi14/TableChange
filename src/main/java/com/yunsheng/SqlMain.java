@@ -1,20 +1,14 @@
 package com.yunsheng;
 
 import com.yunsheng.utils.GetChangeFormatAndDate;
-import com.yunsheng.utils.GetDataFormatAndDate;
 import com.yunsheng.utils.TableChangeJavaLocal;
 import com.yunsheng.utils.WriteFile;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class SqlMain {
 
 
         //原始mysql表名
-    private static String originalMysqlTable="original_mysql_table/退费扣的手续费.sql";
+    private static String originalMysqlTable= "original_mysql_table/手工订单/薪资手工订单.sql";
 
     //catalog名称
     private static String catalog="ods";
