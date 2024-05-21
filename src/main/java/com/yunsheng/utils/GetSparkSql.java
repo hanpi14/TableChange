@@ -43,7 +43,16 @@ public class GetSparkSql {
 
                         sb.append(catalog).append(".").append(schema).append(".").append(tableName).append(" ");
                     }
-                }else {
+                    // TODO: 2024/5/21 针对dwd表进行处理此处暂定
+                }else if (string.trim().toLowerCase(Locale.ROOT).startsWith("dwd_")||
+                        string.trim().toLowerCase(Locale.ROOT).startsWith("mid_")
+                ){
+
+                    sb.append("dw.dwd.").append(string.trim()).append(" ");
+                }
+
+
+                else {
                     sb.append(string.trim()).append(" ");
                 }
 

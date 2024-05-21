@@ -3,6 +3,7 @@ package com.yunsheng;
 import com.yunsheng.utils.GetChangeFormatAndDate;
 import com.yunsheng.utils.GetDataFormatAndDate;
 import com.yunsheng.utils.TableChangeJavaLocal;
+import com.yunsheng.utils.WriteFile;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,7 +14,7 @@ public class SqlMain {
 
 
         //原始mysql表名
-    private static String originalMysqlTable="original_mysql_table/薪资/订单明细.sql";
+    private static String originalMysqlTable="original_mysql_table/退费扣的手续费.sql";
 
     //catalog名称
     private static String catalog="ods";
@@ -22,7 +23,7 @@ public class SqlMain {
 
     private static String snapDate="2024-05-18 03:00:00";
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) throws Exception {
 
         // TODO: 2024/5/20  通过mysql获取本地运行的sparksql
 
@@ -30,17 +31,32 @@ public class SqlMain {
 
         String localSparkSql = TableChangeJavaLocal.tableChangeJavaLocal(originalMysqlTable, catalog, changeDate);
 
-        String snapSqlLocal = GetChangeFormatAndDate.snapSqlLocal(localSparkSql, snapDate);
+        String snapSqlLocal_ods = GetChangeFormatAndDate.snapSqlLocal(localSparkSql, snapDate);
+
+        // TODO: 2024/5/21 此处需要针对替换完catalog和数据库名称的sql进行匹配,添加快照时间,针对dwd层的表
+        String snapSqlLocal_dwd = GetChangeFormatAndDate.snapSqlLocalDwd(snapSqlLocal_ods, snapDate);
 
 
-        System.out.println(snapSqlLocal);
+
+
+        WriteFile.writeFileLocal(snapSqlLocal_dwd);
+
+
+
+//        System.out.println(snapSqlLocal);
+
+
 
 
         // TODO: 2024/5/20 将本地sparksql转化为模板sql，用于构建模板文件
-        String template = GetChangeFormatAndDate.replaceDateTemplate(localSparkSql, "report_month");
+        String localResult = WriteFile.readFileLocal();
 
-        String result = GetChangeFormatAndDate.snapSql(template);
+        String template = GetChangeFormatAndDate.replaceDateTemplate(localResult, "report_month");
+
+        String result = GetChangeFormatAndDate.snapSqlChange(template);
         String dwdTableNameChange = GetChangeFormatAndDate.dwdTableNameChange(result);
+
+//        WriteFile.writeFileDs(dwdTableNameChange);
 
 //        System.out.println(dwdTableNameChange);
 

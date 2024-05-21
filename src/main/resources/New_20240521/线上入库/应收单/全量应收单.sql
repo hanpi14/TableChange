@@ -11,7 +11,7 @@ INSERT INTO dwd_ar_mw(data_source, ar_no, raw_ar_no, is_split, is_discard, is_ig
                       raw_create_time, raw_confirm_time, est_pay_date, is_invoiced, is_paid, pay_time, is_confirmed)
 SELECT CASE
            WHEN
-               A.data_from = 'order' THEN 3
+                   A.data_from = 'order' THEN 3
            WHEN A.data_from = 'manualOrder' THEN -1
            WHEN A.data_from IN ('pubaotong', 'linggongbao') THEN 4
            WHEN A.data_from = 'salary' THEN 8
@@ -79,23 +79,25 @@ FROM (SELECT R.*,
              IFNULL(R.hr_service_dept, S.hr_service_dept)                                     AS serve_dept_id,
              IFNULL(R.hr_achie_dept, S.hr_achie_dept)                                         AS sale_dept_id
       FROM (SELECT *
-            FROM ods_fnc_receivable_account_20230113 O
+            FROM (ods.sbt_prod.fnc_receivable_account FOR SYSTEM_TIME AS OF '${snap_date}') O
             WHERE O.source_no NOT IN (SELECT P.order_no
-                                      FROM ods_ec_order_20230113 P
+                                      FROM (ods.sbt_prod.ec_order FOR SYSTEM_TIME AS OF '${snap_date}') P
                                       WHERE (P.order_type = 'wirteoff' OR P.order_status = 'wirteoff'))
               AND O.source_no NOT IN (SELECT Q.bill_no
-                                      FROM ods_pay_payroll_bill_20230113 Q
+                                      FROM (ods.sbt_prod.pay_payroll_bill FOR SYSTEM_TIME AS OF '${snap_date}') Q
                                       WHERE Q.wirteoff_status = 3)) R
                LEFT JOIN
-           ods_mbc_member_product_20230113 S ON R.m_pr_id = S.m_pr_id
-               LEFT JOIN ods_basic_org_product_20230113 T ON S.pr_id = T.pr_id
-               LEFT JOIN ods_sys_dictionary_dtl_20230113 U
+           (ods.sbt_prod.mbc_member_product FOR SYSTEM_TIME AS OF '${snap_date}') S ON R.m_pr_id = S.m_pr_id
+               LEFT JOIN (ods.sbt_prod.basic_org_product FOR SYSTEM_TIME AS OF '${snap_date}') T ON S.pr_id = T.pr_id
+               LEFT JOIN (ods.sbt_prod.sys_dictionary_dtl FOR SYSTEM_TIME AS OF '${snap_date}') U
                          ON T.service_type = U.dic_value AND U.dic_code = 'PR_SERVICE_TYPE'
-               LEFT JOIN ods_sys_dictionary_dtl_20230113 V
+               LEFT JOIN (ods.sbt_prod.sys_dictionary_dtl FOR SYSTEM_TIME AS OF '${snap_date}') V
                          ON T.service_code = V.dic_value AND V.dic_code = 'PR_SERVICE_CODE'
-               LEFT JOIN ods_mbc_member_info_20230113 W ON R.member_id = W.member_id
-               LEFT JOIN ods_oprt_boss_organization_20230113 X ON R.org_id = X.org_id
-               LEFT JOIN ods_basic_ins_area_20230113 Y ON R.area_code = Y.area_code
-               LEFT JOIN ods_oprt_bill_manual_handle_20230113 Z ON R.receive_id = Z.receive_id
-               LEFT JOIN ods_fnc_receivable_account_20230113 N ON R.parent_id = N.receive_id
+               LEFT JOIN (ods.sbt_prod.mbc_member_info FOR SYSTEM_TIME AS OF '${snap_date}') W ON R.member_id = W.member_id
+               LEFT JOIN (ods.sbt_prod.oprt_boss_organization FOR SYSTEM_TIME AS OF '${snap_date}') X ON R.org_id = X.org_id
+               LEFT JOIN (ods.sbt_prod.basic_ins_area FOR SYSTEM_TIME AS OF '${snap_date}') Y ON R.area_code = Y.area_code
+               LEFT JOIN (ods.sbt_prod.oprt_bill_manual_handle FOR SYSTEM_TIME AS OF '${snap_date}') Z
+                         ON R.receive_id = Z.receive_id
+               LEFT JOIN (ods.sbt_prod.fnc_receivable_account FOR SYSTEM_TIME AS OF '${snap_date}') N
+                         ON R.parent_id = N.receive_id
       WHERE V.dic_value != 'inter') A;

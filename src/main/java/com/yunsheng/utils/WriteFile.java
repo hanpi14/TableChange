@@ -2,8 +2,11 @@ package com.yunsheng.utils;
 
 import sun.applet.Main;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -13,43 +16,60 @@ import java.nio.file.Paths;
 public class WriteFile {
 
 
-    public static void writeFileLocal(String input,String path) throws IOException, URISyntaxException {
+    public static void writeFileLocal(String input) throws IOException, URISyntaxException {
 
-        String resourceDirectory  = Paths.get(WriteFile.class.getResource("/").toURI()).toString();
-        System.out.println(resourceDirectory);
+        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
-        String paths = resourceDirectory + File.separator + "New_20240520"+File.separator+"Local"+File.separator+"薪资";
-
-        System.out.println(paths);
-
-
-
-        Files.createDirectories(Paths.get(paths));
-//        File file = new File("New_20240520/Local"+path);
-//        File file = new File("New_20240520\\Local\\original_mysql_table\\薪资\\");
-//
-//        if (!file.exists()){
-//
-//            boolean created = file.mkdirs();
-//
-//
-//        }
-
-
-//        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-//
-//
-//        bw.write(input);
-//        bw.flush();
-//        bw.close();
+        bw.write(input);
+        bw.flush();
+        bw.close();
 
 
     }
 
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
 
-        writeFileLocal("nihao","original_mysql_table/薪资/订单明细.sql");
+       public static String  readFileLocal() throws Exception {
 
+           File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
+
+           BufferedReader br = new BufferedReader(new FileReader(file));
+
+
+           String line;
+
+           StringBuffer sb = new StringBuffer();
+
+           while ((line=br.readLine())!= null){
+
+               sb.append(line).append("\n");
+
+           }
+
+
+//           System.out.println();
+
+           return sb.toString();
+    }
+
+
+    public static void writeFileDs(String input) throws IOException, URISyntaxException {
+
+        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Ds.sql");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+        bw.write(input);
+        bw.flush();
+        bw.close();
+
+
+    }
+
+
+    public static void main(String[] args) throws Exception {
+
+
+        readFileLocal();
     }
 }

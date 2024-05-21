@@ -97,6 +97,72 @@ public class GetChangeFormatAndDate {
     }
 
 
+    public static String snapSqlLocalDwd(String input,String snapDate){
+
+
+        StringBuffer sb = new StringBuffer();
+        String[] sqls = input.trim().split(";");
+
+        for (String sql : sqls) {
+
+            if (sql.trim().contains("select")|| sql.trim().contains("SELECT")){
+
+
+                // 定义匹配 INSERT INTO 语句的正则表达式
+                String insertRegex = "(?i)(INSERT\\s+INTO\\s+[a-zA-Z0-9_\\.]+)";
+                Pattern insertPattern = Pattern.compile(insertRegex);
+                Matcher insertMatcher = insertPattern.matcher(sql);
+
+                // 用于保存保留 INSERT INTO 语句的结果
+                StringBuffer sqlWithInsert = new StringBuffer();
+                while (insertMatcher.find()) {
+                    String matchedPart = insertMatcher.group(1);
+                    insertMatcher.appendReplacement(sqlWithInsert, Matcher.quoteReplacement(matchedPart));
+                }
+                insertMatcher.appendTail(sqlWithInsert);
+
+                // 替换 FROM 和 JOIN 语句中的表名
+                String fromJoinRegex = "(?i)(FROM|LEFT JOIN|INNER JOIN)\\s+([a-zA-Z0-9_\\.]+)";
+                Pattern fromJoinPattern = Pattern.compile(fromJoinRegex);
+                Matcher fromJoinMatcher = fromJoinPattern.matcher(sqlWithInsert.toString());
+
+                StringBuffer finalSql = new StringBuffer();
+                while (fromJoinMatcher.find()) {
+                    String keyword = fromJoinMatcher.group(1);
+                    String tableName = fromJoinMatcher.group(2);
+
+                    // 替换表名
+                    String newTableName = "("+tableName + " FOR SYSTEM_TIME AS OF \\'"+snapDate+"\\' )"; // 在这里定义你的替换逻辑
+
+                    fromJoinMatcher.appendReplacement(finalSql, keyword + " " + newTableName);
+                }
+                fromJoinMatcher.appendTail(finalSql);
+
+                // 输出最终的 SQL 语句
+//                System.out.println("最终的 SQL 语句：");
+//                System.out.println(finalSql.toString());
+                sb.append(finalSql.toString()).append("\n");
+
+            }else {
+                sb.append(sql).append("\n");
+
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+        return  sb.toString();
+    }
+
+
+
 
 
     public static String snapSql(String input){
@@ -122,6 +188,22 @@ public class GetChangeFormatAndDate {
     }
 
 
+    public static String snapSqlChange(String input){
+
+        // 定义正则表达式匹配模式
+        String patternString = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}";
+        Pattern pattern = Pattern.compile(patternString);
+
+        // 创建Matcher对象
+        Matcher matcher = pattern.matcher(input);
+
+        // 进行匹配和替换
+        String result = matcher.replaceAll("\\${snap_date\\}");
+
+        return result;
+    }
+
+
 
     public static String dwdTableNameChange(String input){
 
@@ -140,7 +222,7 @@ public class GetChangeFormatAndDate {
 //            System.out.println(tableName);
 //            System.out.println(tableName2);
             // 这里可以根据需要对 tableName 进行处理，例如替换成其他值
-            matcher.appendReplacement(output, "dw.dwd."+tableName+"!{load_freq}i");
+            matcher.appendReplacement(output, tableName+"!{load_freq}i");
         }
         matcher.appendTail(output);
 
