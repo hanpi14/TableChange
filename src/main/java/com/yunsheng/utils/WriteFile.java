@@ -18,7 +18,8 @@ public class WriteFile {
 
     public static void writeFileLocal(String input) throws IOException, URISyntaxException {
 
-        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
+//        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
+        File file = new File("E:\\complie\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
         bw.write(input);
@@ -32,7 +33,8 @@ public class WriteFile {
 
        public static String  readFileLocal() throws Exception {
 
-           File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
+//           File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
+           File file = new File("E:\\complie\\TableChange\\src\\main\\resources\\TempDir\\Local.sql");
 
            BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -56,7 +58,8 @@ public class WriteFile {
 
     public static void writeFileDs(String input) throws IOException, URISyntaxException {
 
-        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Ds.sql");
+//        File file = new File("E:\\桌面\\src_code\\TableChange\\src\\main\\resources\\TempDir\\Ds.sql");
+        File file = new File("E:\\complie\\TableChange\\src\\main\\resources\\TempDir\\Ds.sql");
         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
         bw.write(input);

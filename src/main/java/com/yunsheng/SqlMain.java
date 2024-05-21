@@ -8,7 +8,7 @@ public class SqlMain {
 
 
         //原始mysql表名
-    private static String originalMysqlTable= "original_mysql_table/手工订单/薪资手工订单.sql";
+    private static String originalMysqlTable= "original_mysql_table/手工订单/全球雇手工订单.sql";
 
     //catalog名称
     private static String catalog="ods";
@@ -33,7 +33,7 @@ public class SqlMain {
 
 
 
-        WriteFile.writeFileLocal(snapSqlLocal_dwd);
+//        WriteFile.writeFileLocal(snapSqlLocal_dwd);
 
 
 
@@ -50,7 +50,7 @@ public class SqlMain {
         String result = GetChangeFormatAndDate.snapSqlChange(template);
         String dwdTableNameChange = GetChangeFormatAndDate.dwdTableNameChange(result);
 
-//        WriteFile.writeFileDs(dwdTableNameChange);
+        WriteFile.writeFileDs(dwdTableNameChange);
 
 //        System.out.println(dwdTableNameChange);
 
