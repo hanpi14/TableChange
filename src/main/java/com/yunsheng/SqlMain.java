@@ -8,7 +8,7 @@ public class SqlMain {
 
 
         //原始mysql表名
-    private static String originalMysqlTable= "original_mysql_table/手工订单/全球雇手工订单.sql";
+    private static String originalMysqlTable= "original_mysql_table/新版社保通/新版社保与公积金订单明细.sql";
 
     //catalog名称
     private static String catalog="ods";

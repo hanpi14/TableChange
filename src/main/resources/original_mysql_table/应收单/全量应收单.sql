@@ -1,5 +1,5 @@
-TRUNCATE TABLE dwd_ar_mw;
-INSERT INTO dwd_ar_mw(data_source, ar_no, raw_ar_no, is_split, is_discard, is_ignore, is_cross, ar_title,
+TRUNCATE TABLE dwd_ar_dw;
+INSERT INTO dwd_ar_dw(data_source, ar_no, raw_ar_no, is_split, is_discard, is_ignore, is_cross, ar_title,
                       income_type,
                       order_no,
                       member_code,

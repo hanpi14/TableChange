@@ -110,7 +110,7 @@ INSERT INTO dw.dwd.dwd_order_emp_online_!{load_freq}i(data_source,
                                                       bank_region,
                                                       tax_corp,
                                                       raw_create_time,
-                                                      COMMENT,
+                                                      comment,
                                                       raw_order_no,
                                                       batch_no)
 SELECT IF(D.bill_no = L.order_no AND L.valid = 1, 10, 1)                                                AS data_source,
