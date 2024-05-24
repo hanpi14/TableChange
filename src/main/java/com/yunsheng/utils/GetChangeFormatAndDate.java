@@ -132,7 +132,8 @@ public class GetChangeFormatAndDate {
                     String tableName = fromJoinMatcher.group(2);
 
                     // 替换表名
-                    String newTableName = "("+tableName + " FOR SYSTEM_TIME AS OF \\'"+snapDate+"\\' )"; // 在这里定义你的替换逻辑
+//                    String newTableName = "("+tableName + " FOR SYSTEM_TIME AS OF \\'"+snapDate+"\\' )"; // 在这里定义你的替换逻辑
+                    String newTableName = tableName ; // 在这里定义你的替换逻辑
 
                     fromJoinMatcher.appendReplacement(finalSql, keyword + " " + newTableName);
                 }
